@@ -22,3 +22,4 @@ public class CardTest {
         new Card(14, Suit.CLUBS);
     }
 }
+
