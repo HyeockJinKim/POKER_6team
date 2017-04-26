@@ -41,7 +41,7 @@ public class Evaluator {
         //투 페어
 
         //원 페어
-
+        onepair(rankMap);
         //탑
 
 
@@ -92,5 +92,16 @@ public class Evaluator {
         }
         return false;
     }
+
+    private boolean onepair(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
 
 }
