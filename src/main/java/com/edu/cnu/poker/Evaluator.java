@@ -39,7 +39,7 @@ public class Evaluator {
         triple(rankMap);
 
         //투 페어
-
+        twopair(rankMap);
         //원 페어
         onepair(rankMap);
         //탑
