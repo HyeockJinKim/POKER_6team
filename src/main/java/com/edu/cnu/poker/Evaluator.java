@@ -63,7 +63,40 @@ public class Evaluator {
 
         //탑
         return "TOP";
+
     }
+
+
+    public boolean straight(Map<Integer,Integer> rankMap) {
+        int count=0;
+        for (Integer key:rankMap.keySet()) {
+            if (rankMap.get(key) == 1)
+                count++;
+            else
+                count=0;
+
+        }
+        if(count==5)
+            return true;
+        else
+            return false;
+    }
+    public boolean backstraight(Map<Integer,Integer> rankMap){
+
+       if (rankMap.get(1)== 1){
+           for(int i=2;i<=5;i++)
+                if(rankMap.get(i)!=1)
+                    return false;
+        }
+        else
+            return false;
+
+       return true;
+
+
+    }
+
+}
 
 
     private boolean flush(List<Card> cardList) {
