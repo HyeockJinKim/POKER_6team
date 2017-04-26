@@ -30,6 +30,8 @@ public class Evaluator {
         }
 
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
+        //chart는 족보이름.
+        String chart;
 
         for (Card card : cardList) {
             if (suitMap.containsKey(card.getRank())) {
@@ -40,7 +42,28 @@ public class Evaluator {
                 rankMap.put(card.getRank(), new Integer(1));
             }
         }
-        
+        //포카드
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 4) {
+                return "FOURCARD";
+            }
+        }
+        //풀하우스
+
+        //마운틴 & 로티플
+
+        //백스트레이트 & 백스트레이트 플러쉬
+
+        //스트레이스 & 스트레이트 플러쉬
+
+        //트리플
+
+        //투 페어
+
+        //원 페어
+
+        //탑
+
 
 
 
