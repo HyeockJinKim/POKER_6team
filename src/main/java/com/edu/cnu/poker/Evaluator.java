@@ -39,9 +39,9 @@ public class Evaluator {
         triple(rankMap);
 
         //투 페어
-
+        twopair(rankMap);
         //원 페어
-
+        onepair(rankMap);
         //탑
 
 
@@ -92,5 +92,27 @@ public class Evaluator {
         }
         return false;
     }
+
+    private boolean onepair(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean twopair(Map<Integer, Integer> rankMap) {
+        int count = 0;
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                count++;
+            }
+        }
+        if (count >= 2) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
