@@ -32,9 +32,15 @@ public class Evaluator {
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
 
         for (Card card : cardList) {
-            
+            if (suitMap.containsKey(card.getRank())) {
+                Integer count = suitMap.get(card.getRank());
+                count = new Integer(count.intValue() + 1);
+                rankMap.put(card.getRank(), count);
+            } else {
+                rankMap.put(card.getRank(), new Integer(1));
+            }
         }
-
+        
 
 
 
