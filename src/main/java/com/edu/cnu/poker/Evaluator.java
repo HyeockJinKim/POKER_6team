@@ -61,11 +61,7 @@ public class Evaluator {
         if ( onepair(rankMap) ) return "ONEPAIR";
 
         //탑
-
-
-
-
-        return "NOTHING";
+        return "TOP";
     }
 
 
