@@ -13,7 +13,6 @@ public class Evaluator {
 
 
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
-
         for (Card card : cardList) {
             if (rankMap.containsKey(card.getRank())) {
                 Integer count = rankMap.get(card.getRank());
@@ -24,24 +23,47 @@ public class Evaluator {
             }
         }
 
+        boolean isMountain = mountain(rankMap);
+        boolean isStraight = straight(rankMap);
+        boolean isBackstraight = backstraight(rankMap);
+
+        if (isFlush) {
+            //로티플
+            if ( isMountain ) return "LOYALSTRAIGHTFLUSH";
+            //백스트레이트 플러쉬
+            if ( isStraight ) return "BACKSTRAIGHTFLUSH";
+            //스트레이트 플러쉬
+            if ( isBackstraight ) return "STRAIGHTFLUSH";
+        }
+
         //포카드
-        fourcard(rankMap);
+        if ( fourcard(rankMap) ) return "FOURCARD";
 
         //풀하우스
+        if ( fullhouse(rankMap) ) return "FULLHOUSE";
 
-        //마운틴 & 로티플
+        //마운틴
+        if ( isMountain ) return "MOUNTAIN";
 
-        //백스트레이트 & 백스트레이트 플러쉬
+        //백스트레이트
+        if ( isBackstraight ) return "BACKSTRAIGHT";
 
-        //스트레이스 & 스트레이트 플러쉬
+        //스트레이스
+        if ( isStraight ) return "STRAIGHT";
 
         //트리플
-        triple(rankMap);
+        if ( triple(rankMap) ) return "TRIPLE";
 
         //투 페어
-        twopair(rankMap);
+
+        if ( twopair(rankMap) ) return "TWOPAIR";
+
         //원 페어
-        onepair(rankMap);
+        if ( onepair(rankMap) ) return "ONEPAIR";
+
+
+        //원 페어
+
         //탑
 
 
@@ -113,6 +135,7 @@ public class Evaluator {
         }
         return false;
     }
+
 
 
 }
