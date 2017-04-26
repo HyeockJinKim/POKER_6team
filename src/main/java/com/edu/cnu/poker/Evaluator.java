@@ -9,39 +9,24 @@ import java.util.Map;
  */
 public class Evaluator {
     public String evaluate(List<Card> cardList) {
-        boolean isFlush = false;
-        //enum 선언.
+        boolean isFlush = flush(cardList);
 
-        Map<Suit, Integer> suitMap = new HashMap<Suit, Integer>();
-
-        for (Card card : cardList) {
-            if (suitMap.containsKey(card.getSuit())) {
-                Integer count = suitMap.get(card.getSuit());
-                count = new Integer(count.intValue() + 1);
-                suitMap.put(card.getSuit(), count);
-            } else {
-                suitMap.put(card.getSuit(), new Integer(1));
-            }
-        }
-        for (Suit key : suitMap.keySet()) {
-            if (suitMap.get(key) == 5) {
-                isFlush = true;
-            }
-        }
 
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
         //chart는 족보이름.
         String chart;
 
         for (Card card : cardList) {
-            if (suitMap.containsKey(card.getRank())) {
-                Integer count = suitMap.get(card.getRank());
+            if (rankMap.containsKey(card.getRank())) {
+                Integer count = rankMap.get(card.getRank());
                 count = new Integer(count.intValue() + 1);
                 rankMap.put(card.getRank(), count);
             } else {
                 rankMap.put(card.getRank(), new Integer(1));
             }
         }
+
+        
         //포카드
         for (Integer key: rankMap.keySet()) {
             if (rankMap.get(key) == 4) {
@@ -69,4 +54,31 @@ public class Evaluator {
 
         return "NOTHING";
     }
+
+
+    private boolean flush(List<Card> cardList) {
+        boolean isFlush = false;
+        //enum 선언.
+
+        Map<Suit, Integer> suitMap = new HashMap<Suit, Integer>();
+
+        for (Card card : cardList) {
+            if (suitMap.containsKey(card.getSuit())) {
+                Integer count = suitMap.get(card.getSuit());
+                count = new Integer(count.intValue() + 1);
+                suitMap.put(card.getSuit(), count);
+            } else {
+                suitMap.put(card.getSuit(), new Integer(1));
+            }
+        }
+        for (Suit key : suitMap.keySet()) {
+            if (suitMap.get(key) == 5) {
+                isFlush = true;
+            }
+        }
+
+        return isFlush;
+    }
+
+
 }
