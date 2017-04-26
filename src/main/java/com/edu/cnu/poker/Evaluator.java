@@ -13,7 +13,6 @@ public class Evaluator {
 
 
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
-
         for (Card card : cardList) {
             if (rankMap.containsKey(card.getRank())) {
                 Integer count = rankMap.get(card.getRank());
@@ -24,16 +23,26 @@ public class Evaluator {
             }
         }
 
+
+        if (isFlush) {
+            //로티플
+            if (loyalstraightflush(rankMap)) return "LOYALSTRAIGHTFLUSH";
+            //백스트레이트 플러쉬
+            if (backstraightflush(rankMap)) return "BACKSTRAIGHTFLUSH";
+            //스트레이트 플러쉬
+            if (straightflush(rankMap)) return "STRAIGHTFLUSH";
+        }
+
         //포카드
         fourcard(rankMap);
 
         //풀하우스
 
-        //마운틴 & 로티플
+        //마운틴
 
-        //백스트레이트 & 백스트레이트 플러쉬
+        //백스트레이트
 
-        //스트레이스 & 스트레이트 플러쉬
+        //스트레이스
 
         //트리플
         triple(rankMap);
@@ -92,5 +101,9 @@ public class Evaluator {
         }
         return false;
     }
+
+
+
+
 
 }
