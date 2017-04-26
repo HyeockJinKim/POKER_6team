@@ -9,23 +9,35 @@ import java.util.Map;
  */
 public class Evaluator {
     public String evaluate(List<Card> cardList) {
-        Map<Suit, Integer> tempMap = new HashMap<Suit, Integer>();
+        boolean isFlush = false;
+        //enum 선언.
+
+        Map<Suit, Integer> suitMap = new HashMap<Suit, Integer>();
 
         for (Card card : cardList) {
-            if (tempMap.containsKey(card.getSuit())) {
-                Integer count = tempMap.get(card.getSuit());
+            if (suitMap.containsKey(card.getSuit())) {
+                Integer count = suitMap.get(card.getSuit());
                 count = new Integer(count.intValue() + 1);
-                tempMap.put(card.getSuit(), count);
+                suitMap.put(card.getSuit(), count);
             } else {
-                tempMap.put(card.getSuit(), new Integer(1));
+                suitMap.put(card.getSuit(), new Integer(1));
+            }
+        }
+        for (Suit key : suitMap.keySet()) {
+            if (suitMap.get(key) == 5) {
+                isFlush = true;
             }
         }
 
-        for (Suit key : tempMap.keySet()) {
-            if (tempMap.get(key) == 5) {
-                return "FLUSH";
-            }
+        Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
+
+        for (Card card : cardList) {
+            
         }
+
+
+
+
         return "NOTHING";
     }
 }
