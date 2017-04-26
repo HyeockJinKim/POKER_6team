@@ -9,25 +9,62 @@ import java.util.Map;
  */
 public class Evaluator {
     public String evaluate(List<Card> cardList) {
-        Map<Suit, Integer> tempMap = new HashMap<Suit, Integer>();
+        boolean isFlush = flush(cardList);
 
+
+        Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
         for (Card card : cardList) {
-            if (tempMap.containsKey(card.getSuit())) {
-                Integer count = tempMap.get(card.getSuit());
+            if (rankMap.containsKey(card.getRank())) {
+                Integer count = rankMap.get(card.getRank());
                 count = new Integer(count.intValue() + 1);
-                tempMap.put(card.getSuit(), count);
+                rankMap.put(card.getRank(), count);
             } else {
-                tempMap.put(card.getSuit(), new Integer(1));
+                rankMap.put(card.getRank(), new Integer(1));
             }
         }
 
-        for (Suit key : tempMap.keySet()) {
-            if (tempMap.get(key) == 5) {
-                return "FLUSH";
-            }
+        boolean isMountain = mountain(rankMap);
+        boolean isStraight = straight(rankMap);
+        boolean isBackstraight = backstraight(rankMap);
+
+        if (isFlush) {
+            //로티플
+            if ( isMountain ) return "LOYALSTRAIGHTFLUSH";
+            //백스트레이트 플러쉬
+            if ( isStraight ) return "BACKSTRAIGHTFLUSH";
+            //스트레이트 플러쉬
+            if ( isBackstraight ) return "STRAIGHTFLUSH";
         }
-        return "NOTHING";
+
+        //포카드
+        if ( fourcard(rankMap) ) return "FOURCARD";
+
+        //풀하우스
+        if ( fullhouse(rankMap) ) return "FULLHOUSE";
+
+        //마운틴
+        if ( isMountain ) return "MOUNTAIN";
+
+        //백스트레이트
+        if ( isBackstraight ) return "BACKSTRAIGHT";
+
+        //스트레이스
+        if ( isStraight ) return "STRAIGHT";
+
+        //트리플
+        if ( triple(rankMap) ) return "TRIPLE";
+
+        //투 페어
+
+        if ( twopair(rankMap) ) return "TWOPAIR";
+
+        //원 페어
+        if ( onepair(rankMap) ) return "ONEPAIR";
+
+        //탑
+        return "TOP";
     }
+
 
     public boolean straight(Map<Integer,Integer> rankMap) {
         int count=0;
@@ -56,5 +93,73 @@ public class Evaluator {
        return true;
 
     }
+
+}
+
+
+    private boolean flush(List<Card> cardList) {
+        boolean isFlush = false;
+        //enum 선언.
+
+        Map<Suit, Integer> suitMap = new HashMap<Suit, Integer>();
+
+        for (Card card : cardList) {
+            if (suitMap.containsKey(card.getSuit())) {
+                Integer count = suitMap.get(card.getSuit());
+                count = new Integer(count.intValue() + 1);
+                suitMap.put(card.getSuit(), count);
+            } else {
+                suitMap.put(card.getSuit(), new Integer(1));
+            }
+        }
+        for (Suit key : suitMap.keySet()) {
+            if (suitMap.get(key) == 5) {
+                isFlush = true;
+            }
+        }
+
+        return isFlush;
+    }
+
+    private boolean fourcard(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 4) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean triple(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean onepair(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                return true;
+            }
+        }
+        return false;
+    }
+    private boolean twopair(Map<Integer, Integer> rankMap) {
+        int count = 0;
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                count++;
+            }
+        }
+        if (count >= 2) {
+            return true;
+        }
+        return false;
+    }
+
+
 
 }

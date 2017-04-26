@@ -172,7 +172,7 @@ public class EvaluatorTest {
                 new Card(5, Suit.CLUBS)
         );
         String result = evaluator.evaluate(cardList);
-        assertThat(result, is("STRAIGHTFLUSH"));
+        assertThat(result, is("BACKSTRAIGHTFLUSH"));
     }
 
     @Test
@@ -187,6 +187,20 @@ public class EvaluatorTest {
         );
         String result = evaluator.evaluate(cardList);
         assertThat(result, is("LOYALSTRAIGHTFLUSH"));
+    }
+
+    @Test
+    public void 겹치는것이아무것도없다면_탑이다(){
+        Evaluator evaluator = new Evaluator();
+        List<Card> cardList = Arrays.asList(
+                new Card(11, Suit.CLUBS),
+                new Card(3, Suit.HEARTS),
+                new Card(5, Suit.SPADES),
+                new Card(10, Suit.DIAMONDS),
+                new Card(1, Suit.CLUBS)
+        );
+        String result = evaluator.evaluate(cardList);
+        assertThat(result, is("TOP"));
     }
 
 
