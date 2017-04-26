@@ -23,7 +23,7 @@ public class Evaluator {
                 rankMap.put(card.getRank(), new Integer(1));
             }
         }
-        
+
         //포카드
         fourcard(rankMap);
 
@@ -36,6 +36,7 @@ public class Evaluator {
         //스트레이스 & 스트레이트 플러쉬
 
         //트리플
+        triple(rankMap);
 
         //투 페어
 
@@ -80,8 +81,16 @@ public class Evaluator {
                 return true;
             }
         }
+        return false;
     }
 
-
+    private boolean triple(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 3) {
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
