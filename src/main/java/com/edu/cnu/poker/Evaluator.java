@@ -1,8 +1,6 @@
 package com.edu.cnu.poker;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by cse on 2017-04-17.
@@ -31,9 +29,9 @@ public class Evaluator {
             //로티플
             if ( isMountain ) return "LOYALSTRAIGHTFLUSH";
             //백스트레이트 플러쉬
-            if ( isStraight ) return "BACKSTRAIGHTFLUSH";
+            if ( isBackstraight ) return "BACKSTRAIGHTFLUSH";
             //스트레이트 플러쉬
-            if ( isBackstraight ) return "STRAIGHTFLUSH";
+            if ( isStraight ) return "STRAIGHTFLUSH";
         }
 
         //포카드
@@ -41,6 +39,9 @@ public class Evaluator {
 
         //풀하우스
         if ( fullhouse(rankMap) ) return "FULLHOUSE";
+
+        //플러시
+        if ( isFlush ) return "FLUSH";
 
         //마운틴
         if ( isMountain ) return "MOUNTAIN";
@@ -84,11 +85,11 @@ public class Evaluator {
     
     public boolean backstraight(Map<Integer,Integer> rankMap){
 
-       if (rankMap.get(1)== 1){
-           for(int i=2;i<=5;i++)
-                if(rankMap.get(i)!=1)
-                    return false;
-        }
+       if (rankMap.get(1)== 1)
+           for(int i=2;i<=5;i++) {
+               if (!rankMap.containsKey(i))
+                   return false;
+           }
         else
             return false;
 
@@ -180,7 +181,7 @@ public class Evaluator {
         return false;
     }
 
-    private boolean fullHouse(Map<Integer, Integer> rankMap) {
+    private boolean fullhouse(Map<Integer, Integer> rankMap) {
         boolean flag1=false,flag2 = false;
         for (Integer key : rankMap.keySet()) {
            if(rankMap.get(key) == 3){
