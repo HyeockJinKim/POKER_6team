@@ -13,8 +13,6 @@ public class Evaluator {
 
 
         Map<Integer, Integer> rankMap = new HashMap<Integer, Integer>();
-        //chart는 족보이름.
-        String chart;
 
         for (Card card : cardList) {
             if (rankMap.containsKey(card.getRank())) {
@@ -25,14 +23,10 @@ public class Evaluator {
                 rankMap.put(card.getRank(), new Integer(1));
             }
         }
-
         
         //포카드
-        for (Integer key: rankMap.keySet()) {
-            if (rankMap.get(key) == 4) {
-                return "FOURCARD";
-            }
-        }
+        fourcard(rankMap);
+
         //풀하우스
 
         //마운틴 & 로티플
@@ -79,6 +73,15 @@ public class Evaluator {
 
         return isFlush;
     }
+
+    private boolean fourcard(Map<Integer, Integer> rankMap) {
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 4) {
+                return true;
+            }
+        }
+    }
+
 
 
 }
