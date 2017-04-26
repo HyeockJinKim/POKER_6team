@@ -61,9 +61,6 @@ public class Evaluator {
         //원 페어
         if ( onepair(rankMap) ) return "ONEPAIR";
 
-
-        //원 페어
-
         //탑
         return "TOP";
     }
@@ -71,7 +68,6 @@ public class Evaluator {
 
     private boolean flush(List<Card> cardList) {
         boolean isFlush = false;
-        //enum 선언.
 
         Map<Suit, Integer> suitMap = new HashMap<Suit, Integer>();
 
@@ -119,6 +115,7 @@ public class Evaluator {
         }
         return false;
     }
+
     private boolean twopair(Map<Integer, Integer> rankMap) {
         int count = 0;
         for (Integer key: rankMap.keySet()) {
