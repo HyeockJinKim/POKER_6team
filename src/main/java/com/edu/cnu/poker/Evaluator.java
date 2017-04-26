@@ -162,6 +162,57 @@ public class Evaluator {
         return false;
     }
 
+    private boolean mountain(List<Card> cardList) {
+        Map<Integer, Integer> tempMap = new HashMap<Integer, Integer>();
+        for (Card card : cardList) {
+                tempMap.put(card.getRank(), new Integer(1));
+        }
+        Iterator iter = tempMap.entrySet().iterator();
+        List<Integer> rank = new ArrayList<Integer>();
+        boolean flag1 = false, flag2 = false;
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            rank.add((Integer)entry.getKey());
+        }
+        boolean flag= false;
+        rank.remove(rank.indexOf(1));
+        for(int i = 0; i < rank.size()-1; i++){
+            if(rank.get(i)+1 == rank.get(i+1)){
+                flag = true;
+            }
+        }
+        if(flag){
+            return true;
+        }
+        return false;
+    }
+
+    private boolean fullHouse(List<Card> cardList) {
+        Map<Integer, Integer> tempMap = new HashMap<Integer, Integer>();
+        for (Card card : cardList) {
+            if (tempMap.containsKey(card.getRank())) {
+                Integer count = tempMap.get(card.getRank());
+                count = new Integer(count.intValue() + 1);
+                tempMap.put(card.getRank(), count);
+            } else {
+                tempMap.put(card.getRank(), new Integer(1));
+            }
+        }
+        boolean flag1=false,flag2 = false;
+        for (Integer key : tempMap.keySet()) {
+           if(tempMap.get(key) == 3){
+               flag1 = true;
+           }
+           if(tempMap.get(key) == 2){
+                flag2 = true;
+           }
+        }
+        if(flag1 && flag2){
+            return true;
+        }
+        return false;
+    }
+
 
 
 }
