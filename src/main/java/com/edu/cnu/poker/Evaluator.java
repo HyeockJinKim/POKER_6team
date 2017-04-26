@@ -101,5 +101,18 @@ public class Evaluator {
         }
         return false;
     }
+    private boolean twopair(Map<Integer, Integer> rankMap) {
+        int count = 0;
+        for (Integer key: rankMap.keySet()) {
+            if (rankMap.get(key) == 2) {
+                count++;
+            }
+        }
+        if (count >= 2) {
+            return true;
+        }
+        return false;
+    }
+
 
 }
