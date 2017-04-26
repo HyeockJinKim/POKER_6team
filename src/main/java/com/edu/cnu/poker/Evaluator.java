@@ -162,23 +162,16 @@ public class Evaluator {
     }
 
     private boolean mountain(Map<Integer, Integer> rankMap) {
-        Iterator iter = rankMap.entrySet().iterator();
-        List<Integer> rank = new ArrayList<Integer>();
-        while (iter.hasNext()) {
-            Map.Entry entry = (Map.Entry) iter.next();
-            rank.add((Integer)entry.getKey());
-        }
-        boolean flag= false;
-        rank.remove(rank.indexOf(1));
-        for(int i = 0; i < rank.size()-1; i++){
-            if(rank.get(i)+1 == rank.get(i+1)){
-                flag = true;
+
+        if (rankMap.containsKey(1))
+            for(int i=10;i<=13;i++) {
+                if (!rankMap.containsKey(i))
+                    return false;
             }
-        }
-        if(flag){
-            return true;
-        }
-        return false;
+        else
+            return false;
+
+        return true;
     }
 
     private boolean fullhouse(Map<Integer, Integer> rankMap) {
