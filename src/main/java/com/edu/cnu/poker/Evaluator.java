@@ -23,33 +23,42 @@ public class Evaluator {
             }
         }
 
+        boolean isMountain = mountain(rankMap);
+        boolean isStraight = straight(rankMap);
+        boolean isBackstraight = backstraight(rankMap);
 
         if (isFlush) {
             //로티플
-            if (loyalstraightflush(rankMap)) return "LOYALSTRAIGHTFLUSH";
+            if ( isMountain ) return "LOYALSTRAIGHTFLUSH";
             //백스트레이트 플러쉬
-            if (backstraightflush(rankMap)) return "BACKSTRAIGHTFLUSH";
+            if ( isStraight ) return "BACKSTRAIGHTFLUSH";
             //스트레이트 플러쉬
-            if (straightflush(rankMap)) return "STRAIGHTFLUSH";
+            if ( isBackstraight ) return "STRAIGHTFLUSH";
         }
 
         //포카드
-        fourcard(rankMap);
+        if ( fourcard(rankMap) ) return "FOURCARD";
 
         //풀하우스
+        if ( fullhouse(rankMap) ) return "FULLHOUSE";
 
         //마운틴
+        if ( isMountain ) return "MOUNTAIN";
 
         //백스트레이트
+        if ( isBackstraight ) return "BACKSTRAIGHT";
 
         //스트레이스
+        if ( isStraight ) return "STRAIGHT";
 
         //트리플
-        triple(rankMap);
+        if ( triple(rankMap) ) return "TRIPLE";
 
         //투 페어
+        if ( twopair(rankMap) ) return "TWOPAIR";
 
         //원 페어
+        if ( onepair(rankMap) ) return "ONEPAIR";
 
         //탑
 
